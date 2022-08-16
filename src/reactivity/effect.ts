@@ -4,7 +4,7 @@ const targetMap = new Map()
 let activeEffect
 let shouldTrack
 
-class ReactiveEffect {
+export class ReactiveEffect {
   private _fn: any
   deps = []
   active = true
