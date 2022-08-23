@@ -1,9 +1,11 @@
 import { h } from '../../lib/my-mini-vue.esm.js'
 
 export const Foo = {
-  setup(props) {
+  setup(props, { emit }) {
     let emitAdd = () => {
       console.log('emitAdd')
+      emit('add', 1, 2)
+      emit('add-foo', 2, 3)
     }
 
     return { emitAdd }

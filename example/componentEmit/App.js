@@ -8,7 +8,16 @@ export const App = {
       {
         id: 'root',
       },
-      [h(Foo)]
+      [
+        h(Foo, {
+          onAdd(a, b) {
+            console.log('onAdd', a, b)
+          },
+          onAddFoo(a, b) {
+            console.log('onAddfoo', a, b)
+          },
+        }),
+      ]
     )
   },
   setup() {
