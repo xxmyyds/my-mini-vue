@@ -4,7 +4,11 @@ import { createComponentInstance, setupComponent } from './component'
 import { createAppAPI } from './createApp'
 
 export function createRenderer(options) {
-  const { createElement, patchProp, insert } = options
+  const {
+    createElement: hostCreateElement,
+    patchProp: hostPatchProp,
+    insert: hostInsert,
+  } = options
 
   function render(vnode, container) {
     patch(vnode, container, null)
@@ -62,8 +66,8 @@ export function createRenderer(options) {
     mountElement(vnode, container, parentComponent)
   }
   function mountElement(vnode: any, container: any, parentComponent) {
-    const el = (vnode.el = createElement(vnode.type))
-    // const el = (vnode.el = document.createElement(vnode.type))
+    const el = (vnode.el = hostCreateElement(vnode.type))
+
     const { children, props, shapeFlag } = vnode
 
     if (shapeFlag & ShapeFlags.TEXT_CHILDREN) {
@@ -74,19 +78,12 @@ export function createRenderer(options) {
 
     for (const key in props) {
       const val = props[key]
-      patchProp(el, key, val)
-      // const isOn = (key: string) => /^on[A-Z]/.test(key)
-      // if (isOn(key)) {
-      //   const event = key.slice(2).toLowerCase()
-      //   el.addEventListener(event, val)
-      // } else {
-      //   el.setAttribute(key, val)
-      // }
+      hostPatchProp(el, key, val)
     }
 
     // container.append(el)
 
-    insert(el, container)
+    hostInsert(el, container)
   }
   function mountChildren(vnode, container, parentComponent) {
     vnode.children.forEach((v) => {
