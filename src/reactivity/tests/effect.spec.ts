@@ -18,7 +18,24 @@ describe('effect', () => {
 
     expect(nextAge).toBe(12)
   })
+  it('happy path1', () => {
+    let user = {
+      age: 10,
+    }
 
+    user = reactive(user)
+
+    let nextAge
+
+    effect(() => {
+      nextAge = user.age + 1
+    })
+    expect(nextAge).toBe(11)
+
+    user.age++
+
+    expect(nextAge).toBe(12)
+  })
   it('should return runner when call effect', () => {
     let foo = 10
     const runner = effect(() => {
