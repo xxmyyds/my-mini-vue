@@ -25,8 +25,9 @@ function remove(child) {
   }
 }
 
-function insert(el, parent) {
-  parent.append(el)
+function insert(child, parent, anchor) {
+  // parent.append(el)
+  parent.insertBefore(child, anchor || null)
 }
 
 function setElementText(el, text) {
