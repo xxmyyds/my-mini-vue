@@ -7,4 +7,4 @@ export {
   isReactive,
   isReadonly,
 } from './reactive'
-export { effect } from './effect'
+export * from './effect'
